@@ -1,0 +1,195 @@
+#include <stdio.h>
+#include <conio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <dirent.h>
+
+
+
+
+int handle;
+typedef char PACKAGENAME;
+long int get_module_base(int pid, const char *module_name)
+{
+	FILE *fp;
+	long addr = 0;
+	char *pch;
+	char filename[32];
+	char line[1024];
+	snprintf(filename, sizeof(filename), "/proc/%d/maps", pid);
+	fp = fopen(filename, "r");
+	if (fp != NULL)
+	{
+		while (fgets(line, sizeof(line), fp))
+		{
+			if (strstr(line, module_name))
+			{
+				pch = strtok(line, "-");
+				addr = strtoul(pch, NULL, 16);
+				break;
+			}
+		}
+		fclose(fp);
+	}
+	return addr;
+}
+
+int LIVISCHEAT_FLOAT(long int addr, float value)
+{
+	pwrite64(handle, &value, 4, addr);
+	return 0;
+}
+
+int LIVISCHEAT_DWORD(long int addr, int value)
+{
+	pwrite64(handle, &value, 4, addr);
+	return 0;
+}
+
+int getPID(PACKAGENAME * PackageName)
+{
+	DIR *dir = NULL;
+	struct dirent *ptr = NULL;
+	FILE *fp = NULL;
+	char filepath[256];
+	char filetext[128];
+	dir = opendir("/proc");
+	if (NULL != dir)
+	{
+		while ((ptr = readdir(dir)) != NULL)
+		{
+
+			if ((strcmp(ptr->d_name, ".") == 0) || (strcmp(ptr->d_name, "..") == 0))
+				continue;
+			if (ptr->d_type != DT_DIR)
+				continue;
+			sprintf(filepath, "/proc/%s/cmdline", ptr->d_name);
+			fp = fopen(filepath, "r");
+			if (NULL != fp)
+			{
+				fgets(filetext, sizeof(filetext), fp);
+				if (strcmp(filetext, PackageName) == 0)
+				{
+
+					break;
+				}
+				fclose(fp);
+			}
+		}
+	}
+	if (readdir(dir) == NULL)
+	{
+		return 0;
+	}
+	closedir(dir);
+	return atoi(ptr->d_name);
+}
+
+int rebootsystem() {
+	return system("su -c 'reboot'");
+}
+
+
+int main(int argc, char **argv)
+{
+	int gs;
+    void *jg;
+	FILE *fp;
+	char ch, wjm[51];
+	
+	{
+		
+	}
+	int ipid = getPID("com.pubg.imobile");
+	if (ipid == 0)
+	{
+					puts("Game is not Running \n");
+					exit(1);
+	}
+
+
+	char lj[64];
+	sprintf(lj, "/proc/%d/mem", ipid);
+	handle = open(lj, O_RDWR);
+	if (handle == -1)
+	{
+		 exit(1);
+	}
+	puts("Join TG : @Jay_bypass");
+	char mname[] = "libUE4.so";
+	char nname[] = "libanogs.so";
+	char oname[] = "libgcloudcore.so";
+	char pname[] = "libgcloud.so";
+	char qname[] = "libTdatamaster.so";
+	long int UE4 = get_module_base(ipid, mname);
+	long int anogs = get_module_base(ipid, nname);
+	long int gcloudcore = get_module_base(ipid, oname);
+	long int gcloud = get_module_base(ipid, pname);
+	long int Tdatamaster = get_module_base(ipid, qname);
+	
+char nname[] = "libanogs.so";
+WriteBaseAddress_DWORD(anogs + 0x51FA24, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA28, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA2C, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA30, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA34, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA38, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA40, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA44, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA48, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA4C, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA50, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA54, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA58, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA5C, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA60, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA64, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA68, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA6C, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA70, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA74, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA78, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA7C, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA80, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA84, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA88, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA8C, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA90, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA94, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA98, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FA9C, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAA0, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAA4, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAA8, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAAC, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAB0, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAB4, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAB8, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FABC, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAC0, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAC4, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAC8, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FACC, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAD0, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAD4, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAD8, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAE4, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAE8, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAEC, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAF0, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAF4, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAFC, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FAF8, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FB00, 4);
+WriteBaseAddress_DWORD(anogs + 0x51FB04, 4);
+
+
+
+
+
+
+
+	close(handle);
+	return 0;
+}
